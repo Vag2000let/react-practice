@@ -18,7 +18,7 @@ function App() {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch({ type: "FETCH_BOOKS" })
-    dispatch({ type: "FETCH_SELECTIONS" })
+    // dispatch({ type: "FETCH_SELECTIONS" })
   }, [])
 
   return (
