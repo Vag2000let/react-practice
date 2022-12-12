@@ -52,7 +52,7 @@ function CreateBookForm() {
           {errors.bookAuthor && <span className="form_error">This field is required</span>}
         </div>
         <div className="create_book_form_add_btn_wrapper">
-            <button type="submit" className="btn btn-primary">Create book</button>
+            <button type="submit" className="btn btn-primary" data-testid="create_book_button">Create book</button>
         </div>
       </form>
     </div>

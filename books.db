@@ -4,23 +4,3 @@
 {"title":"Timur","author":"React","_id":"WKiD2xJqCnlrIzir"}
 {"title":"JUnit 5","author":"Catalin Tudose","_id":"XkjWxcMOiJ71tDm6"}
 {"title":"cxcxc","author":"xcxcxc","_id":"gLOQg2yQUYSotx7t"}
-{"type":"CREATE_BOOK","_id":"CR0tls1Cou2XSwrt"}
-{"type":"CREATE_BOOK","_id":"EFV4lM4218IykOTZ"}
-{"type":"CREATE_BOOK","_id":"kPfvJFK0u4onG1Zs"}
-{"type":"CREATE_BOOK","payload":{"title":"sdsds","author":"dsdsds"},"_id":"t5dRxzqSwVIywuTJ"}
-{"type":"CREATE_BOOK","payload":{"title":"dsdsd","author":"dsdsds"},"_id":"gnhvmwkuXIPrYKmi"}
-{"type":"CREATE_BOOK","payload":{"title":"dsds","author":"sdsdsd"},"_id":"qHMMAoXj9wedYTZr"}
-{"type":"CREATE_BOOK","payload":{"title":"asasa","author":"asasas"},"_id":"4uCiuifFH3oA4cNY"}
-{"type":"CREATE_BOOK","payload":{"title":"sdsdsd","author":"dsdsd"},"_id":"H5g41GkSfz00TH1J"}
-{"type":"CREATE_BOOK","payload":{"title":"asdsds","author":"sdsd"},"_id":"cU5gsJ0GbvnhPJy4"}
-{"title":"sdsds","author":"sdsdsdsdsdsds","_id":"Kx63x8wLcH2xIXuJ"}
-{"$$deleted":true,"_id":"4uCiuifFH3oA4cNY"}
-{"$$deleted":true,"_id":"CR0tls1Cou2XSwrt"}
-{"$$deleted":true,"_id":"EFV4lM4218IykOTZ"}
-{"$$deleted":true,"_id":"H5g41GkSfz00TH1J"}
-{"$$deleted":true,"_id":"cU5gsJ0GbvnhPJy4"}
-{"$$deleted":true,"_id":"gnhvmwkuXIPrYKmi"}
-{"$$deleted":true,"_id":"kPfvJFK0u4onG1Zs"}
-{"$$deleted":true,"_id":"qHMMAoXj9wedYTZr"}
-{"$$deleted":true,"_id":"Kx63x8wLcH2xIXuJ"}
-{"$$deleted":true,"_id":"t5dRxzqSwVIywuTJ"}
