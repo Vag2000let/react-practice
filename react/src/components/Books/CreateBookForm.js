@@ -1,60 +1,85 @@
-import {useState, useRef} from "react";
 import {useDispatch} from "react-redux";
-import {isStringEmpty, isObjectEmpty} from "../../utils/utils"
+import { Field, Formik } from 'formik'
 
 function CreateBookForm() {
   const dispatch = useDispatch()
 
-  const inputRef = useRef({
-    name: null,
-    author: null,
-  })
-  const elementsRef = useRef({
-    name: useRef(null),
-    author: useRef(null),
-  })
-
-  const [errors, setErrors] = useState({})
-
-  const onSubmit = async () => {
-    let errors = {}
-    if (isStringEmpty(inputRef.current.name)) {
-      errors.bookName='required'
-    }
-    if (isStringEmpty(inputRef.current.author)) {
-      errors.bookAuthor='required'
-    }
-    if (isObjectEmpty(errors)) {
+  const onSubmit = async (values) => {
       dispatch({ type: "CREATE_BOOK", payload: {
-        title: inputRef.current.name,
-        author: inputRef.current.author,
+        title: values.bookName,
+        author: values.bookAuthor,
       }})
-      elementsRef.current.name.current.value = ''
-      elementsRef.current.author.current.value = ''
-      setErrors({})
-    } else {
-      setErrors(errors)
-    }
   }
+
+  const CustomField = ({ errors, name, label, type = 'text', children }) => {
+    const data = 'test'
+    const testAlert = () => {
+      alert('Hi from custoim field')
+    }
+    if (children) {
+      return children({ errors, name, label, data, testAlert })
+    }
+
+    return (
+      <div className="create_book_input col-md-6" >
+        <label htmlFor="bookName" className="form-label">{label}</label>
+        <Field type={type} name={name} className="form-control" />
+        {errors.bookName && <span className="form_error">{errors.bookName}</span>}
+      </div>
+    )
+  }
+
+  const validateForm = (values) => {
+    const errors = {}
+
+    if (values.bookName === '') {
+      errors.bookName = 'Field is required'
+    }
+
+    if (values.bookAuthor === '') {
+      errors.bookAuthor = 'Field is required'
+    }
+
+    return errors
+  }
+
+
   return (
     <div className="create_book_form_wrapper">
-      <form className="create_book_form row" onSubmit={e=>{e.preventDefault(); onSubmit()}}>
-        <div className="create_book_input col-md-6" >
-          <label htmlFor="bookName" className="form-label">Book Title</label>
-          <input type="text" className="form-control" id="bookName" ref={elementsRef.current.name}
-                 onChange={e => inputRef.current.name = e.target.value} />
-          {errors.bookName && <span className="form_error">This field is required</span>}
-        </div>
-        <div className="create_book_input col-md-6">
-          <label htmlFor="bookAuthor" className="form-label">Book Author</label>
-          <input type="text" className="form-control" id="bookAuthor" ref={elementsRef.current.author}
-                 onChange={e => inputRef.current.author = e.target.value} />
-          {errors.bookAuthor && <span className="form_error">This field is required</span>}
-        </div>
-        <div className="create_book_form_add_btn_wrapper">
-            <button type="submit" className="btn btn-primary" data-testid="create_book_button">Create book</button>
-        </div>
-      </form>
+      <Formik initialValues={{ bookName: '', bookAuthor: '' }} onSubmit={onSubmit} validate={validateForm}>
+        {({values, handleChange, handleBlur, handleSubmit, errors}) => (
+            <form className="create_book_form row" onSubmit={handleSubmit}>
+            <CustomField errors={errors} name='bookName' label='Book Title'>
+              {({name, label, data, testAlert}) => (
+                <div>
+                  { name },
+                  { label },
+                  { data },
+                  <button onClick={testAlert}>Нажми</button>
+                </div>
+              )}
+            </CustomField>
+            {/* <div className="create_book_input col-md-6" >
+              <label htmlFor="bookName" className="form-label">Book Title</label>
+              <input value={values.bookName} name="bookName" type="text" className="form-control" id="bookName"
+                    onChange={handleChange} onBlur={handleBlur} />
+              <Field type='text' name="bookName" className="form-control" />
+              {errors.bookName && <span className="form_error">{errors.bookName}</span>}
+            </div> */}
+            <CustomField errors={errors} name='bookAuthor' label='Book Author' />
+            {/* <div className="create_book_input col-md-6">
+              <label htmlFor="bookAuthor" className="form-label">Book Author</label>
+              <input value={values.bookAuthor} name="bookAuthor" type="text" className="form-control" id="bookAuthor"
+                    onChange={handleChange} onBlur={handleBlur} />
+              <Field type='text' name="bookAuthor" className="form-control" />
+              {errors.bookAuthor && <span className="form_error">{errors.bookAuthor}</span>}
+            </div> */}
+            <div className="create_book_form_add_btn_wrapper">
+                <button type="submit" className="btn btn-primary" data-testid="create_book_button">Create book</button>
+            </div>
+          </form>
+        )}
+      </Formik>
     </div>
   )
 }
