@@ -1,5 +1,6 @@
 import {useDispatch} from "react-redux";
 import { Field, Formik } from 'formik'
+import * as Yup from 'yup'
 
 function CreateBookForm() {
   const dispatch = useDispatch()
@@ -10,6 +11,14 @@ function CreateBookForm() {
         author: values.bookAuthor,
       }})
   }
+
+  const CreateBookSchema = Yup.object().shape({
+    bookName: Yup.string()
+      .matches(/[a-zA-Z\s]+/gi, 'Введите только буквы!')
+      .min(5, 'Имя слишком короткое')
+      .max(10, 'Имя слишком длинное')
+      .required('Field is required')
+  })
 
   const CustomField = ({ errors, name, label, type = 'text', children }) => {
     const data = 'test'
@@ -24,7 +33,7 @@ function CreateBookForm() {
       <div className="create_book_input col-md-6" >
         <label htmlFor="bookName" className="form-label">{label}</label>
         <Field type={type} name={name} className="form-control" />
-        {errors.bookName && <span className="form_error">{errors.bookName}</span>}
+        {errors[name] && <span className="form_error">{errors[name]}</span>}
       </div>
     )
   }
@@ -46,19 +55,10 @@ function CreateBookForm() {
 
   return (
     <div className="create_book_form_wrapper">
-      <Formik initialValues={{ bookName: '', bookAuthor: '' }} onSubmit={onSubmit} validate={validateForm}>
+      <Formik initialValues={{ bookName: '', bookAuthor: '' }} onSubmit={onSubmit} validationSchema={CreateBookSchema}>
         {({values, handleChange, handleBlur, handleSubmit, errors}) => (
             <form className="create_book_form row" onSubmit={handleSubmit}>
-            <CustomField errors={errors} name='bookName' label='Book Title'>
-              {({name, label, data, testAlert}) => (
-                <div>
-                  { name },
-                  { label },
-                  { data },
-                  <button onClick={testAlert}>Нажми</button>
-                </div>
-              )}
-            </CustomField>
+            <CustomField errors={errors} name='bookName' label='Book Title' />
             {/* <div className="create_book_input col-md-6" >
               <label htmlFor="bookName" className="form-label">Book Title</label>
               <input value={values.bookName} name="bookName" type="text" className="form-control" id="bookName"
